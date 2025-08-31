@@ -182,10 +182,7 @@ const DAYS = [
     ]
   }
 ];
-
-
-  {{DATA}}
-
+(function(){
   let map, markersLayer, router;
   let current = 0;
 
@@ -230,9 +227,9 @@ const DAYS = [
     list.innerHTML = '';
     d.steps.forEach((s, i) => {
       const li = document.createElement('li');
-      li.innerHTML = '<div style="font-weight:500;">' + (i + 1) + '. ' + s.name + '</div>' +
-                     '<div style="font-size:12px;">' + (s.time || '') + '</div>' +
-                     (s.note ? '<div class="muted">' + s.note + '</div>' : '');
+      li.innerHTML = '<div style=\"font-weight:500;\">' + (i + 1) + '. ' + s.name + '</div>' +
+                     '<div style=\"font-size:12px;\">' + (s.time || '') + '</div>' +
+                     (s.note ? '<div class=\"muted\">' + s.note + '</div>' : '');
       list.appendChild(li);
     });
 
@@ -247,9 +244,9 @@ const DAYS = [
     const waypoints = d.steps.map(s => L.latLng(s.lat, s.lng));
     d.steps.forEach((s, i) => {
       const m = L.marker([s.lat, s.lng]).bindPopup(
-        '<div style="font-weight:600;">' + (i + 1) + '. ' + s.name + '</div>' +
+        '<div style=\"font-weight:600;\">' + (i + 1) + '. ' + s.name + '</div>' +
         '<div>' + (s.time || '') + '</div>' +
-        (s.note ? '<div style="margin-top:4px; font-size:12px;">' + s.note + '</div>' : '')
+        (s.note ? '<div style=\"margin-top:4px; font-size:12px;\">' + s.note + '</div>' : '')
       );
       markersLayer.addLayer(m);
     });
@@ -266,7 +263,7 @@ const DAYS = [
         routeWhileDragging: false,
         lineOptions: { addWaypoints: false },
         altLineOptions: { styles: [{ opacity: 0.6 }, { opacity: 0.4 }] },
-        createMarker: function() { return null; } // we already add markers
+        createMarker: function() { return null; }
       }).addTo(map);
     } else if (waypoints.length === 1) {
       map.setView(waypoints[0], 13);
@@ -274,4 +271,4 @@ const DAYS = [
   }
 
   window.addEventListener('load', init);
-  
+})();
